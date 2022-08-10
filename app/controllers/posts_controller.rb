@@ -9,9 +9,17 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post = Post.new
   end
 
   def create
+    @post = Post.new(post_params)
+
+    if @post.save
+      render json: @post
+    else
+      render json: { errors: @post.errors }, status: 422 
+    end
   end
 
   def update
@@ -27,5 +35,9 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id]) if params[:id]
+  end
+
+  def post_params
+    params.require(:post).permit(:text)
   end
 end
