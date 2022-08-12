@@ -1,5 +1,18 @@
 <h1><%= @comment.body %></h1>
 
-<td><%= link_to 'Edit', edit_post_comment_path(@comment.post, @comment) %></td>
-<td><%= link_to 'Destroy', post_comment_path(@comment.post, @comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>   
-<td><%= link_to 'Back', post_comments_path(@comment.post) %></td>  
+<div>
+  <%= link_to 'Edit Comment', edit_post_comment_path(@comment.post, @comment) %>
+  <%= link_to 'Delete Comment', post_comment_path(@comment.post, @comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Back', post_comments_path(@comment.post) %>
+</div>
+
+<%= link_to "Add Reaction", new_post_comment_reaction_path(@comment.post, @comment) %>
+
+<p>
+  <% Reaction::VALID_CATEGORIES.each do |category| %>
+    <% unless @comment.reactions.count_by_category(category) == 0 %>
+      <%= category  %>
+      <%= @comment.reactions.count_by_category(category) %>
+    <% end %> 
+  <% end %> 
+</p>
