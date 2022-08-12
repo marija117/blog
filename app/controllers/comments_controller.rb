@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      redirect_to post_comments_path(@post), notice: 'Comment was successfully created.'
+      redirect_to user_post_comments_path(@post.user, @post), notice: 'Comment was successfully created.'
     else
       render json: { errors: @comment.errors }, status: 422 
     end
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to post_comments_path(@post), notice: 'Comment was successfully updated.'
+      redirect_to user_post_comments_path(@post.user, @post), notice: 'Comment was successfully updated.'
     else
       render json: { errors: @comment.errors }, status: 422 
     end
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
 
-    redirect_to post_comments_path(@post)
+    redirect_to user_post_comments_path(@post.user, @post)
   end
 
   private

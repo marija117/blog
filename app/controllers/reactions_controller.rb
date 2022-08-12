@@ -12,7 +12,7 @@ class ReactionsController < ApplicationController
     @reaction.user_id = current_user.id
 
     if @reaction.save
-      redirect_to post_comment_path(@comment.post, @comment), notice: 'Reaction was successfully created.'
+      redirect_to user_post_comment_path(@comment.post.user, @comment.post, @comment), notice: 'Reaction was successfully created.'
     else
       render json: { errors: @reaction.errors }, status: 422 
     end
@@ -23,7 +23,7 @@ class ReactionsController < ApplicationController
       @reaction.destroy
     end
 
-    redirect_to post_comment_path(@comment.post, @comment)
+    redirect_to user_post_comment_path(@comment.post.user, @comment.post, @comment)
   end
 
   private
