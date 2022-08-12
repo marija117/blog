@@ -1,14 +1,17 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :get_post
+  before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def index
+    @comments = @post.comments
   end
 
   def show
   end
 
   def new
+    @comment = @post.comments.build
   end
 
   def create
@@ -16,13 +19,18 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      redirect_to post_path(@post), notice: 'Book was successfully created.'
+      redirect_to post_comments_path(@post), notice: 'Comment was successfully created.'
     else
       render json: { errors: @comment.errors }, status: 422 
     end
   end
 
   def update
+    if @comment.update(comment_params)
+      redirect_to post_comments_path(@post), notice: 'Comment was successfully updated.'
+    else
+      render json: { errors: @comment.errors }, status: 422 
+    end
   end
 
   def edit
@@ -35,6 +43,10 @@ class CommentsController < ApplicationController
 
   def get_post
     @post = Post.find(params[:post_id]) if params[:post_id]
+  end
+
+  def set_comment
+    @comment = @post.comments.find(params[:id]) if params[:id]
   end
 
   def comment_params
