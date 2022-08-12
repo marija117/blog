@@ -1,12 +1,12 @@
 <h1><%= @comment.body %></h1>
 
 <div>
-  <%= link_to 'Edit Comment', edit_post_comment_path(@comment.post, @comment) %>
-  <%= link_to 'Delete Comment', post_comment_path(@comment.post, @comment), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= link_to 'Back', post_comments_path(@comment.post) %>
+  <%= link_to 'Edit Comment', edit_user_post_comment_path(@comment.post.user, @comment.post, @comment) %>
+  <%= link_to 'Delete Comment', user_post_comment_path(@comment.post.user, @comment.post, @comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Back', user_post_comments_path(@comment.post.user, @comment.post) %>
 </div>
 <% unless @comment.reactions.user_already_reacted(current_user).exists? %>
-  <%= link_to "Add Reaction", new_post_comment_reaction_path(@comment.post, @comment) %>
+  <%= link_to "Add Reaction", new_user_post_comment_reaction_path(@comment.post.user, @comment.post, @comment) %>
 <% end %>
 <p>
   <% Reaction::VALID_CATEGORIES.each do |category| %>
@@ -16,6 +16,6 @@
     <% end %> 
   <% end %> 
   <% if @comment.reactions.user_already_reacted(current_user).exists? %>
-    <%= link_to 'Remove your reaction', post_comment_reaction_path(@comment.post, @comment, Reaction.for_user(current_user, @comment)), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Remove your reaction', user_post_comment_reaction_path(@comment.post.user, @comment.post, @comment, Reaction.for_user(current_user, @comment)), method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 </p>

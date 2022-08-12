@@ -14,9 +14,9 @@
       <tr>
         <th scope="row"><%= comment.id %></th>
         <td><%= comment.body %></td>
-        <td><%= link_to 'Show', post_comment_path(comment.post, comment) %></td>
-        <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %></td>
-        <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>   
+        <td><%= link_to 'Show', user_post_comment_path(comment.post.user, comment.post, comment) %></td>
+        <td><%= link_to 'Edit', edit_user_post_comment_path(comment.post.user, comment.post, comment) %></td>
+        <td><%= link_to 'Destroy', user_post_comment_path(comment.post.user, comment.post, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>   
       </tr>
     <% end %>
   </tbody>
