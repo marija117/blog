@@ -5,14 +5,17 @@
   <%= link_to 'Delete Comment', post_comment_path(@comment.post, @comment), method: :delete, data: { confirm: 'Are you sure?' } %>
   <%= link_to 'Back', post_comments_path(@comment.post) %>
 </div>
-
-<%= link_to "Add Reaction", new_post_comment_reaction_path(@comment.post, @comment) %>
-
+<% unless @comment.reactions.user_already_reacted(current_user).exists? %>
+  <%= link_to "Add Reaction", new_post_comment_reaction_path(@comment.post, @comment) %>
+<% end %>
 <p>
   <% Reaction::VALID_CATEGORIES.each do |category| %>
     <% unless @comment.reactions.count_by_category(category) == 0 %>
       <%= category  %>
-      <%= @comment.reactions.count_by_category(category) %>
+      <%= @comment.reactions.count_by_category(category) %> 
     <% end %> 
   <% end %> 
+  <% if @comment.reactions.user_already_reacted(current_user).exists? %>
+    <%= link_to 'Remove your reaction', post_comment_reaction_path(@comment.post, @comment, Reaction.for_user(current_user, @comment)), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
 </p>
