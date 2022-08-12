@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      render json: @post
+      redirect_to posts_path, notice: 'Post was successfully created.'
     else
       render json: { errors: @post.errors }, status: 422 
     end
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post
+      redirect_to posts_path, notice: 'Post was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
