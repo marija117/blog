@@ -19,6 +19,11 @@ class ReactionsController < ApplicationController
   end
 
   def destroy
+    if current_user.id == @reaction.user_id
+      @reaction.destroy
+    end
+
+    redirect_to post_comment_path(@comment.post, @comment)
   end
 
   private
