@@ -1,25 +1,14 @@
 <h1><%= @post.text %></h1>
 
-<ul>
-  <li><%= link_to "Edit", edit_post_path(@post) %></li>
-  <li><%= button_to "Delete", @post, :method => :delete, :confirm => "Are you sure ?" %></li>
-</ul>
+<%= link_to "Create Comment", new_post_comment_path(@post) %>
+<%= link_to 'Back', posts_path %>
 
-<h2>Comments</h2>
+
 <% @post.comments.each do |comment| %>
   <p>
     <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
-
-<h2>Add a comment:</h2>
-<%= form_with model: [ @post, @post.comments.build ] do |form| %>
-  <p>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
+    <a href="<%= post_comment_path(@post, comment) %>">
+      <%= comment.body %>
+    </a>    
   </p>
 <% end %>

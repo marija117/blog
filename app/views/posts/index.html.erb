@@ -1,11 +1,25 @@
 <h1>Posts</h1>
 
-<ul>
-  <% @posts.each do |post| %>
-    <li>
-      <%= link_to post.text, post %>
-    </li>
-  <% end %>
-</ul>
+<%= link_to "Create Post", new_post_path %>
 
-<%= link_to "New Post", new_post_path %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Text</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each  do |post| %>
+      <tr>
+        <th scope="row"><%= post.id %></th>
+        <td><%= post.text %></td>
+        <td><%= link_to 'Show', post_path(post) %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %></td>   
+      </tr>
+    <% end %>
+  </tbody>
+</table>
