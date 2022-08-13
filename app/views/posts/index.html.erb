@@ -16,6 +16,7 @@
       <tr>
         <th scope="row"><%= post.id %></th>
         <td><%= post.text %></td>
+        <td><%= link_to 'Comments', user_post_comments_path(@user, post) %></td>
         <td><%= link_to 'Show', user_post_path(@user, post) %></td>
         <td><%= link_to 'Edit', edit_user_post_path(@user, post) %></td>
         <td><%= link_to 'Destroy', user_post_path(@user, post), method: :delete, data: { confirm: 'Are you sure?' } %></td>   

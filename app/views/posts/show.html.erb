@@ -1,8 +1,5 @@
 <h1><%= @post.text %></h1>
 
-<%= link_to "Create Comment", new_user_post_comment_path(@user, @post) %>
-<%= link_to 'Back', user_posts_path(@user) %>
-
 <% @post.comments.each do |comment| %>
   <p>
     <strong>Comment:</strong>
@@ -18,3 +15,6 @@
     <% end %> 
   </p>
 <% end %>
+
+<%= link_to "Create Comment", new_user_post_comment_path(@user, @post) %>
+<%= link_to 'Back', user_posts_path(@user) %>

@@ -1,17 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="w-100 d-flex justify-content-between mx-3">
-    <a class="navbar-brand" href="/users">Blog app</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+  <div class="w-100 d-flex justify-content-between mx-3 row">
+    <div class="col-10">
+      <a class="navbar-brand " href="/users">Blog app</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse col-2" id="navbarNavDropdown">
       <% if current_user %>
-        <a class="nav-link text-primary" href="#" role="button">
-          <%= current_user.email %>
-        </a>
-       
-          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-primary' %>
+        <div class="col-6 d-flex justify-content-end">
+          <a class="nav-link text-white" href="#" role="button">
+            <%= current_user.email %>
+          </a>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-white text-decoration-none' %>
+        </div>
+      <% else %>
+        <div class="col-6 d-flex justify-content-end">
+          <%= link_to 'Register', new_user_registration_path, method: :get, class: 'text-white text-decoration-none' %>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <%= link_to 'Sign in', new_user_session_path, method: :get, class: 'text-white text-decoration-none' %>
+        </div>
       <% end %>
     </div>
   </div>
