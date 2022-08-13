@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :get_post
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :is_owner?, only: [:edit, :update, :destroy]
 
   def index
     @comments = @post.comments
@@ -50,6 +51,10 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = @post.comments.find(params[:id]) if params[:id]
+  end
+
+  def is_owner?
+    redirect_to root_path unless @comment.user.id == current_user.id
   end
 
   def comment_params

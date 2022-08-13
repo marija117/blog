@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :get_user
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :is_owner?, only: [:edit, :update, :destroy]
 
   def index
-    @posts = current_user.posts
+    @posts = @user.posts
   end
 
   def show
@@ -50,6 +51,10 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id]) if params[:id]
+  end
+
+  def is_owner?
+    redirect_to root_path unless @post.user.id == current_user.id
   end
 
   def post_params

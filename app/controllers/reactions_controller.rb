@@ -2,6 +2,7 @@ class ReactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_comment
   before_action :set_reaction, only: [:destroy]
+  before_action :is_owner?, only: [:destroy]
 
   def new
     @reaction = @comment.reactions.build
@@ -19,9 +20,7 @@ class ReactionsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == @reaction.user_id
-      @reaction.destroy
-    end
+    @reaction.destroy
 
     redirect_to user_post_comment_path(@comment.post.user, @comment.post, @comment)
   end
@@ -34,6 +33,10 @@ class ReactionsController < ApplicationController
 
   def set_reaction
     @reaction = @comment.reactions.find(params[:id]) if params[:id]
+  end
+
+  def is_owner?
+    redirect_to root_path unless @reaction.user.id == current_user.id
   end
 
   def reaction_params
