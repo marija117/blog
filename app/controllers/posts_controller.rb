@@ -12,11 +12,11 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = @user.posts.build
+    @post = current_user.posts.build
   end
 
   def create
-    @post = @user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
 
 
     if @post.save
