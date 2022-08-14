@@ -1,20 +1,9 @@
 <h1><%= @post.text %></h1>
 
-<% @post.comments.each do |comment| %>
-  <p>
-    <strong>Comment:</strong>
-    <a href="<%= user_post_comment_path(@post.user, @post, comment) %>">
-      <%= comment.body %>
-    </a> 
-
-    <% Reaction::VALID_CATEGORIES.each do |category| %>
-      <% unless comment.reactions.count_by_category(category) == 0 %>
-        <%= category  %>
-        <%= comment.reactions.count_by_category(category) %>
-      <% end %>
-    <% end %> 
-  </p>
-<% end %>
+<%= turbo_stream_from @post %>
+<div id="comments">
+  <%= render @post.comments  %>
+</div>
 
 <%= link_to "Create Comment", new_user_post_comment_path(@user, @post) %>
 <%= link_to 'Back', user_posts_path(@user) %>
