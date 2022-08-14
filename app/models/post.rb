@@ -4,4 +4,6 @@ class Post < ApplicationRecord
 
     validates :title, presence: true
     validates :text, presence: true, length: { minimum: 10 }
+    
+    after_create_commit {broadcast_append_to self.user}
 end

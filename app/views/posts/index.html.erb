@@ -1,26 +1,9 @@
 <h1>Posts</h1>
 
+<%= turbo_stream_from @user %>
+<div id="posts">
+  <%= render @posts  %>
+</div>
+
 <%= link_to "Create Post", new_user_post_path(@user) %>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Text</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each  do |post| %>
-      <tr>
-        <th scope="row"><%= post.id %></th>
-        <td><%= post.text %></td>
-        <td><%= link_to 'Comments', user_post_comments_path(@user, post) %></td>
-        <td><%= link_to 'Show', user_post_path(@user, post) %></td>
-        <td><%= link_to 'Edit', edit_user_post_path(@user, post) %></td>
-        <td><%= link_to 'Destroy', user_post_path(@user, post), method: :delete, data: { confirm: 'Are you sure?' } %></td>   
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= link_to 'Back', users_path %>
