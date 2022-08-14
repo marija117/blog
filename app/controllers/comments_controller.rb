@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      redirect_to user_post_comments_path(@post.user, @post), notice: 'Comment was successfully created.'
+      redirect_to user_post_path(@post.user, @post), notice: 'Comment was successfully created.'
     else
       render json: { errors: @comment.errors }, status: 422 
     end
