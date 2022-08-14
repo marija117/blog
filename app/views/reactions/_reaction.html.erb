@@ -1,0 +1,6 @@
+<p> 
+<% unless reaction.comment.reactions.count_by_category(reaction.category) == 0 %>
+      <%= reaction.category  %>
+      <%= reaction.comment.reactions.count_by_category(reaction.category) %> 
+<% end %>
+</p>

@@ -1,0 +1,13 @@
+  <p>
+    <strong>Comment:</strong>
+    <a href="<%= user_post_comment_path(comment.post.user, comment.post, comment) %>">
+      <%= comment.body %>
+    </a> 
+
+    <% Reaction::VALID_CATEGORIES.each do |category| %>
+      <% unless comment.reactions.count_by_category(category) == 0 %>
+        <%= category  %>
+        <%= comment.reactions.count_by_category(category) %>
+      <% end %>
+    <% end %> 
+  </p>

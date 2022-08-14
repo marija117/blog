@@ -1,0 +1,10 @@
+<p>
+  <%= post.id %>
+  <%= post.title %>
+  <%= post.text %>
+  <%= link_to 'Comments', user_post_comments_path(post.user, post) %>
+  <%= link_to 'Show', user_post_path(post.user, post) %>
+  <%= link_to 'Edit', edit_user_post_path(post.user, post) %>
+  <%= link_to 'Destroy', user_post_path(post.user, post), method: :delete, data: { confirm: 'Are you sure?' } %>   
+</p>
+
